@@ -29,8 +29,6 @@ body {
   line-height: 1.6;
   overflow-x: clip;
   -webkit-font-smoothing: antialiased;
-
-  /* Block double-tap-to-zoom while keeping vertical scroll */
   touch-action: pan-y;
 }
 
@@ -225,7 +223,6 @@ img {
 }
 
 .hski-m {
-  /* Same ski, presented twice — identical orientation, just offset bob */
   animation-delay: -3.2s;
 }
 
@@ -359,7 +356,6 @@ img {
   max-width: 30ch;
 }
 
-/* Legibility scrim so caption text lifts off the skis behind it */
 .cap-1::before,
 .cap-3::before {
   content: "";
@@ -487,7 +483,6 @@ img {
     opacity: 0.5;
   }
 
-  /* Reserve a left column so the big words wrap before reaching the tip */
   .statement > :not(.statement-tip) {
     max-width: 58%;
   }
@@ -828,8 +823,6 @@ img {
   object-fit: cover;
   opacity: 0;
   visibility: hidden;
-
-  /* Tone the bright snow shots into the dark palette */
   filter: brightness(0.68) contrast(1.05) saturate(0.85);
 }
 
@@ -859,8 +852,6 @@ img {
 
 .traverse {
   border-block: 1px solid var(--line);
-
-  /* Tall scroll area: 100vh pin + 400vh of horizontal travel */
   height: 500vh;
   view-timeline: --trav block;
 }
@@ -876,8 +867,6 @@ img {
   display: flex;
   width: max-content;
   height: 100%;
-
-  /* Pan the 5 × 100vw panels across exactly the pinned phase */
   animation: track-pan linear both;
   animation-timeline: --trav;
   animation-range: contain;

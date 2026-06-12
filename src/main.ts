@@ -4,6 +4,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
 
+ScrollTrigger.config({ ignoreMobileResize: true })
+
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
 if (!reduceMotion) {
@@ -19,7 +21,6 @@ function initShowcase() {
   if (!skiL || !skiR || !skiB || !skiB2) return
 
   const split = () => Math.min(window.innerWidth * 0.2, 340)
-  // Narrow screens collapse split()*0.22 to a near-overlap, so enforce a min gap.
   const initGap = () => (window.innerWidth < 700 ? window.innerWidth * 0.12 : split() * 0.22)
 
   gsap.set([skiL, skiR, skiB, skiB2], { xPercent: -50, transformPerspective: 1100 })
