@@ -849,14 +849,36 @@ img {
 }
 
 .traverse {
-  overflow: clip;
   border-block: 1px solid var(--line);
+
+  /* Tall scroll area: 100vh pin + 400vh of horizontal travel */
+  height: 500vh;
+  view-timeline: --trav block;
+}
+
+.track-wrap {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: clip;
 }
 
 .track {
   display: flex;
   width: max-content;
-  height: 100svh;
+  height: 100%;
+
+  /* Pan the 5 × 100vw panels across exactly the pinned phase */
+  animation: track-pan linear both;
+  animation-timeline: --trav;
+  animation-range: contain;
+  will-change: transform;
+}
+
+@keyframes track-pan {
+  to {
+    transform: translateX(calc(-100% + 100vw));
+  }
 }
 
 .panel {
@@ -1196,9 +1218,22 @@ img {
     display: grid;
   }
 
+  .traverse {
+    height: auto;
+  }
+
+  .track-wrap {
+    position: static;
+    height: auto;
+    overflow: visible;
+  }
+
   .track {
     flex-direction: column;
+    width: 100%;
     height: auto;
+    animation: none;
+    transform: none;
   }
 
   .panel {

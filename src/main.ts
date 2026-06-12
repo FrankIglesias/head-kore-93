@@ -9,7 +9,6 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
 if (!reduceMotion) {
   initShowcase()
   initConstruction()
-  initTraverse()
 }
 
 function initShowcase() {
@@ -96,26 +95,6 @@ function initConstruction() {
         .fromTo(media[i], { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.5 }, `${at}+=0.1`)
     }
     tl.to({}, { duration: 1 })
-  })
-}
-
-function initTraverse() {
-  const track = document.querySelector<HTMLElement>('.track')
-  if (!track) return
-
-  const distance = () => track.scrollWidth - window.innerWidth
-  gsap.to(track, {
-    x: () => -distance(),
-    ease: 'none',
-    onUpdate: syncTopbar,
-    scrollTrigger: {
-      trigger: '.traverse',
-      start: 'top top',
-      end: () => `+=${distance()}`,
-      pin: true,
-      scrub: 1,
-      invalidateOnRefresh: true,
-    },
   })
 }
 
