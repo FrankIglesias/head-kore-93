@@ -20,10 +20,12 @@ function initShowcase() {
   if (!skiL || !skiR || !skiB || !skiB2) return
 
   const split = () => Math.min(window.innerWidth * 0.2, 340)
+  // Narrow screens collapse split()*0.22 to a near-overlap, so enforce a min gap.
+  const initGap = () => (window.innerWidth < 700 ? window.innerWidth * 0.12 : split() * 0.22)
 
   gsap.set([skiL, skiR, skiB, skiB2], { xPercent: -50, transformPerspective: 1100 })
-  gsap.set([skiL, skiB2], { x: -split() * 0.22 })
-  gsap.set([skiR, skiB], { x: split() * 0.22 })
+  gsap.set([skiL, skiB2], { x: -initGap() })
+  gsap.set([skiR, skiB], { x: initGap() })
   gsap.set([skiB, skiB2], { scaleX: 0 })
   gsap.set([skiL, skiR], { rotationX: 58, scale: 0.88, transformOrigin: '50% 65%' })
 
@@ -61,8 +63,8 @@ function initShowcase() {
     .to({}, { duration: 0.8 })
 
     .addLabel('settle')
-    .to(skiB2, { x: () => -split() * 0.35, rotation: 0, scale: 0.94, duration: 1 }, 'settle')
-    .to(skiB, { x: () => split() * 0.35, rotation: 0, scale: 0.94, duration: 1 }, 'settle')
+    .to(skiB2, { x: () => -initGap(), rotation: 0, scale: 0.94, duration: 1 }, 'settle')
+    .to(skiB, { x: () => initGap(), rotation: 0, scale: 0.94, duration: 1 }, 'settle')
     .to('.show-glow', { autoAlpha: 0.35, duration: 1 }, 'settle')
     .to('.cap-3', { autoAlpha: 0, y: -16, duration: 0.4 }, 'settle+=0.4')
     .to({}, { duration: 0.4 })

@@ -29,6 +29,9 @@ body {
   line-height: 1.6;
   overflow-x: clip;
   -webkit-font-smoothing: antialiased;
+
+  /* Block double-tap-to-zoom while keeping vertical scroll */
+  touch-action: pan-y;
 }
 
 ::selection {
@@ -75,6 +78,8 @@ img {
   background: var(--lime);
   transform-origin: left;
   transform: scaleX(0);
+  will-change: transform;
+  backface-visibility: hidden;
   animation: grow linear;
   animation-timeline: scroll(root block);
 }
@@ -103,12 +108,6 @@ img {
   font-weight: 900;
   font-size: 1.4rem;
   letter-spacing: 0.04em;
-}
-
-.brand i {
-  font-style: normal;
-  font-size: 0.6em;
-  vertical-align: super;
 }
 
 .topbar-cta {
@@ -226,7 +225,7 @@ img {
 }
 
 .hski-m {
-  transform: scaleX(-1);
+  /* Same ski, presented twice — identical orientation, just offset bob */
   animation-delay: -3.2s;
 }
 
@@ -271,8 +270,9 @@ img {
   }
 
   .hero-skis {
-    right: -10vw;
+    right: 6vw;
     bottom: -20svh;
+    gap: clamp(0.6rem, 2vw, 1.2rem);
     opacity: 0.92;
   }
 
@@ -359,12 +359,22 @@ img {
   max-width: 30ch;
 }
 
+/* Legibility scrim so caption text lifts off the skis behind it */
+.cap-1::before,
+.cap-3::before {
+  content: "";
+  position: absolute;
+  inset: -1.4em -2.6em;
+  z-index: -1;
+  background: radial-gradient(60% 75% at 50% 50%, rgb(10 12 14 / 88%) 0%, transparent 78%);
+}
+
 .cap-1 {
-  bottom: 12svh;
+  bottom: 9svh;
 }
 
 .cap-3 {
-  bottom: 12svh;
+  bottom: 9svh;
 }
 
 .cap-2 {
@@ -428,7 +438,7 @@ img {
   background-size: 280% 48%;
   background-position: 80% 8%;
   mix-blend-mode: screen;
-  mask-image: url("/images/kore93-tip.png");
+  mask-image: url("/images/kore93-tip.webp");
   mask-size: 100% 100%;
   animation: spotlight linear both;
   animation-timeline: view();
@@ -737,7 +747,7 @@ img {
   }
 
   .blu .t {
-    font-size: 38px;
+    font-size: 30px;
   }
 
   .t-block {
@@ -1058,9 +1068,9 @@ img {
   }
 
   .cta-skis img {
-    width: 215%;
+    width: 270%;
     max-width: none;
-    transform: translateX(-8%) rotate(-45deg) translate(-16%, 0);
+    transform: translate(-15%, 26%) rotate(-45deg) translate(-16%, 0);
   }
 }
 
