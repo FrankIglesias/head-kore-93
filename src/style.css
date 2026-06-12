@@ -1,6 +1,5 @@
 :root {
   --ink: #0e1013;
-  --ink-2: #15181c;
   --paper: #e8eae4;
   --line: #272c31;
   --muted: #8d97a0;
@@ -30,6 +29,7 @@ body {
   overflow-x: clip;
   -webkit-font-smoothing: antialiased;
   touch-action: pan-y;
+  timeline-scope: --trav;
 }
 
 ::selection {
@@ -99,6 +99,9 @@ img {
   justify-content: space-between;
   padding: 1.1rem 2rem;
   mix-blend-mode: difference;
+  animation: topbar-lime linear both;
+  animation-timeline: --trav;
+  animation-range: contain;
 }
 
 .brand {
@@ -110,18 +113,46 @@ img {
 
 .topbar-cta {
   color: var(--muted);
+  animation: topbar-cta-lime linear both;
+  animation-timeline: --trav;
+  animation-range: contain;
 }
 
-.topbar.on-lime {
-  mix-blend-mode: normal;
+@keyframes topbar-lime {
+  0%,
+  49.9% {
+    mix-blend-mode: difference;
+    color: var(--paper);
+  }
+
+  50%,
+  74.9% {
+    mix-blend-mode: normal;
+    color: var(--ink);
+  }
+
+  75%,
+  100% {
+    mix-blend-mode: difference;
+    color: var(--paper);
+  }
 }
 
-.topbar.on-lime .brand {
-  color: var(--ink);
-}
+@keyframes topbar-cta-lime {
+  0%,
+  49.9% {
+    color: var(--muted);
+  }
 
-.topbar.on-lime .topbar-cta {
-  color: #45510a;
+  50%,
+  74.9% {
+    color: #45510a;
+  }
+
+  75%,
+  100% {
+    color: var(--muted);
+  }
 }
 
 .hero {
@@ -314,8 +345,23 @@ img {
   }
 }
 
+.showcase {
+  --split: min(20vw, 340px);
+  --gap: calc(var(--split) * 0.22);
+
+  height: 640svh;
+  view-timeline: --show block;
+}
+
+@media (width <= 700px) {
+  .showcase {
+    --gap: 12vw;
+  }
+}
+
 .show-stage {
-  position: relative;
+  position: sticky;
+  top: 0;
   height: 100svh;
   overflow: clip;
   display: grid;
@@ -331,6 +377,9 @@ img {
   background: radial-gradient(circle, rgb(214 243 32 / 22%) 0%, transparent 65%);
   opacity: 0;
   filter: blur(8px);
+  animation: glow-seq linear both;
+  animation-timeline: --show;
+  animation-range: contain;
 }
 
 .ski {
@@ -341,19 +390,244 @@ img {
   width: auto;
   filter: drop-shadow(20px 36px 34px rgb(0 0 0 / 60%));
   will-change: transform;
+  animation: linear both;
+  animation-timeline: --show;
+  animation-range: contain;
+}
+
+.ski-l,
+.ski-r {
+  transform-origin: 50% 65%;
+}
+
+.ski-l {
+  animation-name: ski-l-seq;
+}
+
+.ski-r {
+  animation-name: ski-r-seq;
+}
+
+.ski-b {
+  animation-name: ski-b-seq;
+}
+
+.ski-b2 {
+  animation-name: ski-b2-seq;
+}
+
+@keyframes ski-l-seq {
+  0% {
+    transform: perspective(1100px) translateX(-50%) translateX(calc(-1 * var(--gap))) rotateX(58deg)
+      scale(0.88);
+    animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  42.8%,
+  51.6% {
+    transform: perspective(1100px) translateX(-50%) translateX(calc(-1 * var(--gap))) rotateX(0deg)
+      scale(1.04);
+    animation-timing-function: ease-in-out;
+  }
+
+  62.8%,
+  71.2% {
+    transform: perspective(1100px) translateX(-50%) translateX(calc(-1 * var(--split))) rotate(-11deg)
+      scale(1.04) scaleX(1);
+    animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+  }
+
+  74.4%,
+  100% {
+    transform: perspective(1100px) translateX(-50%) translateX(calc(-1 * var(--split))) rotate(-11deg)
+      scale(1.04) scaleX(0);
+  }
+}
+
+@keyframes ski-r-seq {
+  0% {
+    transform: perspective(1100px) translateX(-50%) translateX(var(--gap)) rotateX(58deg) scale(0.88);
+    animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  42.8%,
+  51.6% {
+    transform: perspective(1100px) translateX(-50%) translateX(var(--gap)) rotateX(0deg) scale(1.04);
+    animation-timing-function: ease-in-out;
+  }
+
+  62.8%,
+  69.3% {
+    transform: perspective(1100px) translateX(-50%) translateX(var(--split)) rotate(11deg) scale(1.04)
+      scaleX(1);
+    animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+  }
+
+  72.6%,
+  100% {
+    transform: perspective(1100px) translateX(-50%) translateX(var(--split)) rotate(11deg) scale(1.04)
+      scaleX(0);
+  }
+}
+
+@keyframes ski-b-seq {
+  0%,
+  51.6% {
+    transform: translateX(-50%) translateX(var(--gap)) scaleX(0);
+    animation-timing-function: ease-in-out;
+  }
+
+  62.8%,
+  72.6% {
+    transform: translateX(-50%) translateX(var(--split)) rotate(11deg) scaleX(0);
+    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+
+  75.8%,
+  87% {
+    transform: translateX(-50%) translateX(var(--split)) rotate(11deg) scaleX(1);
+    animation-timing-function: ease-in-out;
+  }
+
+  96.3%,
+  100% {
+    transform: translateX(-50%) translateX(var(--gap)) scale(0.94);
+  }
+}
+
+@keyframes ski-b2-seq {
+  0%,
+  51.6% {
+    transform: translateX(-50%) translateX(calc(-1 * var(--gap))) scaleX(0);
+    animation-timing-function: ease-in-out;
+  }
+
+  62.8%,
+  74.4% {
+    transform: translateX(-50%) translateX(calc(-1 * var(--split))) rotate(-11deg) scaleX(0);
+    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+
+  77.7%,
+  87% {
+    transform: translateX(-50%) translateX(calc(-1 * var(--split))) rotate(-11deg) scaleX(1);
+    animation-timing-function: ease-in-out;
+  }
+
+  96.3%,
+  100% {
+    transform: translateX(-50%) translateX(calc(-1 * var(--gap))) scale(0.94);
+  }
+}
+
+@keyframes glow-seq {
+  0%,
+  71.2% {
+    opacity: 0;
+    transform: scale(1);
+    animation-timing-function: ease-out;
+  }
+
+  78.6%,
+  87% {
+    opacity: 1;
+    transform: scale(1.15);
+    animation-timing-function: ease-in-out;
+  }
+
+  96.3%,
+  100% {
+    opacity: 0.35;
+    transform: scale(1.15);
+  }
 }
 
 .show-cap {
   position: absolute;
   text-align: center;
   opacity: 0;
-  visibility: hidden;
   display: grid;
   gap: 0.5rem;
   justify-items: center;
   font-size: 1.15rem;
   color: var(--paper);
   max-width: 30ch;
+  animation: linear both;
+  animation-timeline: --show;
+  animation-range: contain;
+}
+
+.cap-1 {
+  animation-name: cap1-seq;
+}
+
+.cap-3 {
+  animation-name: cap3-seq;
+}
+
+@keyframes cap1-seq {
+  0% {
+    opacity: 0;
+    transform: translateY(26px);
+    animation-timing-function: ease-out;
+  }
+
+  4.7%,
+  48.4% {
+    opacity: 1;
+    transform: none;
+    animation-timing-function: ease-in;
+  }
+
+  51.6%,
+  100% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes cap2-seq {
+  0%,
+  54.4% {
+    opacity: 0;
+    transform: scale(0.92);
+    animation-timing-function: ease-out;
+  }
+
+  61.9%,
+  69.3% {
+    opacity: 1;
+    transform: scale(1);
+    animation-timing-function: ease-in;
+  }
+
+  73%,
+  100% {
+    opacity: 0;
+    transform: scale(1);
+  }
+}
+
+@keyframes cap3-seq {
+  0%,
+  74.9% {
+    opacity: 0;
+    transform: translateY(26px);
+    animation-timing-function: ease-out;
+  }
+
+  79.5%,
+  90.7% {
+    opacity: 1;
+    transform: none;
+    animation-timing-function: ease-in;
+  }
+
+  94.4%,
+  100% {
+    opacity: 0;
+    transform: translateY(-16px);
+  }
 }
 
 .cap-1::before,
@@ -365,10 +639,7 @@ img {
   background: radial-gradient(60% 75% at 50% 50%, rgb(10 12 14 / 88%) 0%, transparent 78%);
 }
 
-.cap-1 {
-  bottom: 9svh;
-}
-
+.cap-1,
 .cap-3 {
   bottom: 9svh;
 }
@@ -383,6 +654,7 @@ img {
   white-space: nowrap;
   z-index: 0;
   color: #1d2228;
+  animation-name: cap2-seq;
 }
 
 .ski,
@@ -755,8 +1027,15 @@ img {
   }
 }
 
+.build {
+  height: 380svh;
+  view-timeline: --build block;
+}
+
 .build-stage {
-  min-height: 100svh;
+  position: sticky;
+  top: 0;
+  height: 100svh;
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
   align-items: stretch;
@@ -787,12 +1066,73 @@ img {
   flex-direction: column;
   justify-content: center;
   opacity: 0;
-  visibility: hidden;
+  animation: linear both;
+  animation-timeline: --build;
+  animation-range: contain;
 }
 
-.bs:first-child {
-  opacity: 1;
-  visibility: visible;
+.bs:nth-child(1) {
+  animation-name: bs1-seq;
+}
+
+.bs:nth-child(2) {
+  animation-name: bs2-seq;
+}
+
+.bs:nth-child(3) {
+  animation-name: bs3-seq;
+}
+
+@keyframes bs1-seq {
+  0%,
+  23.3% {
+    opacity: 1;
+    transform: none;
+    animation-timing-function: ease-in;
+  }
+
+  32.6%,
+  100% {
+    opacity: 0;
+    transform: translateY(-36px);
+  }
+}
+
+@keyframes bs2-seq {
+  0%,
+  26.7% {
+    opacity: 0;
+    transform: translateY(48px);
+    animation-timing-function: ease-out;
+  }
+
+  38.4%,
+  61.6% {
+    opacity: 1;
+    transform: none;
+    animation-timing-function: ease-in;
+  }
+
+  70.9%,
+  100% {
+    opacity: 0;
+    transform: translateY(-36px);
+  }
+}
+
+@keyframes bs3-seq {
+  0%,
+  65.1% {
+    opacity: 0;
+    transform: translateY(48px);
+    animation-timing-function: ease-out;
+  }
+
+  76.7%,
+  100% {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 .bs h3 {
@@ -822,13 +1162,72 @@ img {
   height: 100%;
   object-fit: cover;
   opacity: 0;
-  visibility: hidden;
   filter: brightness(0.68) contrast(1.05) saturate(0.85);
+  animation: linear both;
+  animation-timeline: --build;
+  animation-range: contain;
 }
 
-.bm:first-child {
-  opacity: 1;
-  visibility: visible;
+.bm:nth-child(1) {
+  animation-name: bm1-seq;
+}
+
+.bm:nth-child(2) {
+  animation-name: bm2-seq;
+}
+
+.bm:nth-child(3) {
+  animation-name: bm3-seq;
+}
+
+@keyframes bm1-seq {
+  0%,
+  23.3% {
+    opacity: 1;
+    transform: none;
+    animation-timing-function: ease-in;
+  }
+
+  34.9%,
+  100% {
+    opacity: 0;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes bm2-seq {
+  0%,
+  25.6% {
+    opacity: 0;
+    transform: none;
+    animation-timing-function: ease-out;
+  }
+
+  37.2%,
+  61.6% {
+    opacity: 1;
+    transform: none;
+    animation-timing-function: ease-in;
+  }
+
+  73.3%,
+  100% {
+    opacity: 0;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes bm3-seq {
+  0%,
+  64% {
+    opacity: 0;
+    animation-timing-function: ease-out;
+  }
+
+  75.6%,
+  100% {
+    opacity: 1;
+  }
 }
 
 @media (width <= 900px) {
@@ -905,11 +1304,6 @@ img {
   letter-spacing: 0.01em;
 }
 
-.panel-big small {
-  font-size: 0.35em;
-  color: var(--muted);
-}
-
 .panel-sub {
   color: var(--muted);
 }
@@ -932,28 +1326,6 @@ img {
 .panel-lime .panel-label,
 .panel-lime .panel-sub {
   color: #45510a;
-}
-
-.lengths {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.2rem 2rem;
-  list-style: none;
-  padding: 0;
-}
-
-.lengths li {
-  font-family: var(--display);
-  font-weight: 800;
-  font-size: clamp(2.4rem, 7vw, 6rem);
-  letter-spacing: 0.02em;
-  line-height: 1;
-  border-bottom: 4px solid var(--line);
-}
-
-.lengths li:nth-child(4) {
-  color: var(--lime);
-  border-color: var(--lime);
 }
 
 .panel-end {
@@ -1111,7 +1483,6 @@ img {
   .kicker,
   .hero-line,
   .hero-claim,
-  .plate-hero,
   .statement-line .w,
   .spec-row {
     animation: none;
@@ -1150,16 +1521,41 @@ img {
     animation: levitate 0s;
   }
 
-  .show-stage {
+  .topbar,
+  .topbar-cta,
+  .ski,
+  .show-cap,
+  .show-glow,
+  .bs,
+  .bm {
+    animation: none;
+  }
+
+  .showcase,
+  .build {
     height: auto;
+  }
+
+  .show-stage,
+  .build-stage {
+    position: static;
+    height: auto;
+  }
+
+  .show-stage {
     padding: 16vh 6vw;
     grid-auto-flow: row;
     gap: 2rem;
   }
 
+  .build-stage {
+    min-height: 100svh;
+  }
+
   .ski {
     position: static;
     height: 60svh;
+    transform: none;
   }
 
   .ski-r,
@@ -1170,7 +1566,6 @@ img {
   .show-cap {
     position: static;
     opacity: 1;
-    visibility: visible;
   }
 
   .cap-2 {
@@ -1182,7 +1577,6 @@ img {
   .bm {
     position: static;
     opacity: 1;
-    visibility: visible;
   }
 
   .build-slides {
