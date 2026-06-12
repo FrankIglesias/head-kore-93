@@ -486,6 +486,11 @@ img {
     height: 80%;
     opacity: 0.5;
   }
+
+  /* Reserve a left column so the big words wrap before reaching the tip */
+  .statement > :not(.statement-tip) {
+    max-width: 58%;
+  }
 }
 
 .statement-label {
@@ -823,6 +828,9 @@ img {
   object-fit: cover;
   opacity: 0;
   visibility: hidden;
+
+  /* Tone the bright snow shots into the dark palette */
+  filter: brightness(0.68) contrast(1.05) saturate(0.85);
 }
 
 .bm:first-child {
@@ -838,13 +846,14 @@ img {
 
   .build-copy {
     border-right: 0;
-    border-bottom: 1px solid var(--line);
+    border-bottom: 0;
     padding: 11vh 6vw 2.5rem;
     min-height: 46svh;
   }
 
   .build-media {
     min-height: 0;
+    border-top: 1px solid var(--line);
   }
 }
 
@@ -981,37 +990,15 @@ img {
 }
 
 .spec-row {
-  position: relative;
   display: grid;
   grid-template-columns: 200px 1fr;
   gap: 1.5rem;
   align-items: baseline;
   padding: 1.4rem 0;
   border-bottom: 1px solid var(--line);
-  transition: padding-left 0.25s cubic-bezier(0.2, 0.7, 0.2, 1);
   animation: row-in linear both;
   animation-timeline: view();
-  animation-range: entry 0% entry 60%;
-}
-
-.spec-row::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 50%;
-  translate: 0 -50%;
-  width: 3px;
-  height: 0;
-  background: var(--lime);
-  transition: height 0.25s cubic-bezier(0.2, 0.7, 0.2, 1);
-}
-
-.spec-row:hover {
-  padding-left: 1.2rem;
-}
-
-.spec-row:hover::before {
-  height: 65%;
+  animation-range: entry 35% cover 12%;
 }
 
 .spec-row span {
