@@ -111,10 +111,3 @@ function syncTopbar() {
 }
 window.addEventListener('scroll', syncTopbar, { passive: true })
 window.addEventListener('resize', syncTopbar, { passive: true })
-
-if (!CSS.supports('animation-timeline: scroll()')) {
-  console.warn(
-    '[kore93] No native scroll-driven animation support — reveals/parallax degrade gracefully. ' +
-      'Polyfill if needed: https://github.com/flackr/scroll-timeline',
-  )
-}
