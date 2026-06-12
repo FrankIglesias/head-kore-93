@@ -482,7 +482,7 @@ img {
 
 @media (width <= 900px) {
   .statement-tip {
-    right: -4vw;
+    right: 5vw;
     height: 80%;
     opacity: 0.5;
   }
@@ -1090,9 +1090,9 @@ img {
   }
 
   .cta-skis img {
-    width: 270%;
+    width: 290%;
     max-width: none;
-    transform: translate(-15%, 38%) rotate(-45deg) translate(-16%, 0);
+    transform: translate(-15%, 50%) rotate(-45deg) translate(-16%, 0);
   }
 }
 
