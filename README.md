@@ -1,9 +1,11 @@
-# HEAD Kore 93 — Scroll Animation Lab
+# HEAD Kore 93 — CSS-Only Scroll Animation Lab
 
 A single-page marketing concept for the HEAD Kore 93 ski, built as a lab for
-**scroll-driven storytelling** — every animation, including the pinned
-cinematic sequences, runs on native CSS scroll timelines. The site ships
-zero JavaScript.
+**scroll-driven storytelling in pure CSS**. Every animation — the scroll
+progress bar, the pinned cinematic ski sequence, the horizontal panel
+traverse, even the top-bar color flip — runs on native CSS scroll timelines.
+**No JavaScript is shipped at all**: the production build is one HTML file
+and one stylesheet.
 
 🔗 **Live:** [head-kore-93.vercel.app](https://head-kore-93.vercel.app/)
 
